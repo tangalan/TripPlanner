@@ -1,4 +1,8 @@
 class TripsController < ApplicationController
+  
+  # before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!,  except: [:index]
+  
   def index
     @trips = Trip.all
   end
@@ -8,7 +12,7 @@ class TripsController < ApplicationController
   end
   
   def new
-    @trip = Trip.new
+    @trip = current_user.trips.build
   end
   
   def edit
@@ -16,7 +20,7 @@ class TripsController < ApplicationController
   end
   
   def create    
-    @trip = Trip.new(trip_params) #referring to \models\trip.rb
+    @trip = current_user.trips.build(trip_params) #referring to \models\trip.rb
  
     if @trip.save
       redirect_to @trip # redirects to show action 
@@ -44,6 +48,10 @@ class TripsController < ApplicationController
   
   
   private
+  def set_task
+      @trip = Trip.find(params[:id])
+    end
+    
   def trip_params
     params.require(:trip).permit(:place)
   end

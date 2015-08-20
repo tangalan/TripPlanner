@@ -1,0 +1,9 @@
+== 20150820074505 DeviseCreateUsers: migrating ================================
+-- create_table(:users)
+   -> 0.0290s
+-- add_index(:users, :email, {:unique=>true})
+   -> 0.0040s
+-- add_index(:users, :reset_password_token, {:unique=>true})
+   -> 0.0040s
+== 20150820074505 DeviseCreateUsers: migrated (0.0390s) =======================
+

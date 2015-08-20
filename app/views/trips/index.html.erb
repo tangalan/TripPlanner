@@ -3,16 +3,21 @@
 <table>
   <tr>
     <th>Place</th>
+    <th>User </th> 
   </tr>
  
   <% @trips.each do |trip| %>
     <tr>
       <td><%= trip.place	 %></td>
+      <td><%= trip.user.email %></td>
       <td><%= link_to 'Show', trip_path(trip) %></td>
-      <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
-      <td><%= link_to 'Destroy', trip_path(trip),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
+      
+      <% if trip.user == current_user %>
+	        <td><%= link_to 'Edit', edit_task_path(task) %></td>
+	        <td><%= link_to 'Destroy', trip_path(trip), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  <% end %>
+    
+     
     </tr>
   <% end %>
 </table>
