@@ -1,0 +1,10 @@
+<p>
+	<strong>Point of Interest:</strong>
+    <%= poi.poi %>
+</p>
+
+<p>
+  <%= link_to 'Destroy Point of Interest', [poi.trip, poi],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+</p>
