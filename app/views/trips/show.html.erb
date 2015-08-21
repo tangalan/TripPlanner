@@ -5,12 +5,24 @@
 
 
 <h2>Current Points of Interest</h2>
-<%= render @trip.pois %>
+<!-- <%= render @trip.pois %> -->
+<%= link_to 'Current POIs', trip_pois_path(@trip) %>
 
 
 
 <!-- Modify this page to open up a list of Pois instead  -->
 <h2>Add a Point of Interest:</h2>
+
+ 
+<% find_pois.each do |poi| %> 
+ <p>
+ 	<%= poi.name %>
+ 	<%= poi.address %>
+ 	<%= find_flickr_pictures(poi.name) %>
+ </p>
+<% end %>
+
+<%= link_to 'Add POI', new_trip_poi_path(@trip) %>
 <%= render 'pois/form' %>
 
 

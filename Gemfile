@@ -46,3 +46,12 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gem for user authentication 
 gem 'devise'
 
+# gem for google_places
+gem 'google_places'
+
+gem 'foursquare2'
+gem 'oauth2'
+
+gem 'flickraw'
+
+

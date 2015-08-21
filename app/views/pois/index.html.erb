@@ -1,0 +1,27 @@
+<h1>Listing Points of Interest for Trip to </h1>
+ 
+<table>
+  <tr>
+    <th>Point of Interest </th>
+    <th>Address </th> 
+  </tr>
+ 
+  <% @pois.each do |poi| %>
+    <tr>
+      <td><%= poi.name	 %></td>
+      <td><%= poi.address %></td>
+      <td><%= link_to 'Show', trip_poi_path(poi) %></td>
+      
+      <% if trip.user == current_user %>
+	        <td><%= link_to 'Edit', edit_trip_poi_paths(poi) %></td>
+	        <td><%= link_to 'Destroy', trip_poi_path(poi), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  <% end %>
+    
+     
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Home', root_path %>
+
+<%= link_to 'View Trip', trip_path(trip) %>

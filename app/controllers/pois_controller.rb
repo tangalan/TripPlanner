@@ -1,4 +1,13 @@
+
+
+
 class PoisController < ApplicationController
+  
+  def index
+    @pois = Poi.all
+  end
+  
+  
   def create
     @trip = Trip.find(params[:trip_id])
     @poi = @trip.pois.create(comment_params)
