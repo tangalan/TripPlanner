@@ -4,20 +4,26 @@
   <tr>
     <th>Place</th>
     <th>User </th> 
+    <th>Selected Points of Interest</th>
   </tr>
  
   <% @trips.each do |trip| %>
     <tr>
       <td><%= trip.place	 %></td>
       <td><%= trip.user.email %></td>
+      <td> 
+      	<% trip.pois.each do |poi| %>
+      		<% if poi.selected %>
+      			<%= poi.name %>
+      		<% end %>
+      	<% end %>
+      	
+      </td>	
       <td><%= link_to 'Show', trip_path(trip) %></td>
-      
       <% if trip.user == current_user %>
 	        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
 	        <td><%= link_to 'Destroy', trip_path(trip), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	  <% end %>
-    
-     
     </tr>
   <% end %>
 </table>

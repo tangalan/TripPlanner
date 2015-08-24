@@ -9,10 +9,17 @@ Rails.application.routes.draw do
   Rails.application.routes.draw do
  
     resources :trips do 
+      
       resources :pois
+        
     end
     root 'welcome#index'
   end 
+  
+  match 'pois/select' => 'pois#select', :via => :post
+  
+  match 'pois/deselect' => 'pois#deselect', :via => :post
+  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

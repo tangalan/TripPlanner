@@ -1,6 +1,6 @@
 module ApplicationHelper 
   
-  Point_Of_Interest = Struct.new :name, :address
+  Point_Of_Interest = Struct.new :name, :address, :urls
     
   def get_foursquare_client_id
     foursquare_client_id = "0UHJK0DMCGPKCWTJPPJR4D4YSNWZDPFMBDYJECJTAOBL4YSW"
@@ -23,33 +23,51 @@ module ApplicationHelper
   end
   
   def find_pois
+   puts "finding pois"
    $poi_array = Array.new
    client = Foursquare2::Client.new(:client_id => get_foursquare_client_id, :client_secret => get_foursquare_client_secret)
-   @venues = client.search_venues_by_tip(:near => @trip.place, :query => 'attractions', :v => 20150821) 
+   @venues = client.search_venues_by_tip(:near => @trip.place, :query => 'attractions', :limit => 5, :v => 20150821) 
    @venues.each do |poi|
      name = poi.name 
+     puts name
      address = poi.location.address
+     puts address
      new_poi = Point_Of_Interest.new(name, address)
      $poi_array.push(new_poi)
    end    
    $poi_array
   end
   
-  def find_flickr_pictures(name)
+  def find_flickr_pictures(name, number_of_photos)
     FlickRaw.api_key = get_flickr_key
     FlickRaw.shared_secret = get_flickr_secret
-    flickr.photos.search(:api_key => get_flickr_key, :text => name)
+    flickr.photos.search(:api_key => get_flickr_key, :text => name, :per_page => number_of_photos)
   end
   
-end
-
-
+  def find_url(poi_name, number_to_display)
+    puts "querying " + poi_name
+    url_array = Array.new 
+    results = (find_flickr_pictures("\"" + poi_name + "\"", number_to_display)) #escaped quotes to make search more specific
+    results.size
+    # if results shown exceeds number of photos we want to display
+    if (results.size > 0)
+      0.upto(number_to_display) do |n|
+        unless (results[n].nil?) then 
+          info = flickr.photos.getInfo(:photo_id => results[n].id) 
+          url = FlickRaw.url_b(info)   
+          url_array.push(url)      
+        end 
+      end
+    end
+    url_array
+  end
+end 
 
 class TripsController < ApplicationController
-  
+  include ApplicationHelper
      
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!,  except: [:index]
+  before_action :authenticate_user!,  except: [:welcome]
   
   def index
     @trips = Trip.all
@@ -69,8 +87,15 @@ class TripsController < ApplicationController
   
   def create    
     @trip = current_user.trips.build(trip_params) #referring to \models\trip.rb
- 
+    puts "Place: " + @trip.place
+    
     if @trip.save
+      find_pois.each do |poi|
+        name = poi.name
+        address = poi.address
+        @trip.pois.create(:name => name, :address => address)
+        puts "created POI"
+      end 
       redirect_to @trip # redirects to show action 
     else
       render 'new'
@@ -92,8 +117,9 @@ class TripsController < ApplicationController
     @trip.destroy
    
     redirect_to trips_path
-  end
+  end  
   
+ 
   
   private
   

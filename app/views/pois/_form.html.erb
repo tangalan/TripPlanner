@@ -1,12 +1,12 @@
 
-    <%= @trip.place %>
+<%= @trip.place %>
     
  	
 
 <%= form_for([@trip, @trip.pois.build]) do |f| %>
   <p>
     <%= f.label "Point of Interest" %><br>
-    <%= f.text_field :poi %>
+    <%= f.text_field :name %>
   </p>
  
   <p>

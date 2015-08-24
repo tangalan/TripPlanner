@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820081335) do
+ActiveRecord::Schema.define(version: 20150824181550) do
 
   create_table "pois", force: :cascade do |t|
-    t.string   "poi"
     t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "name"
+    t.string   "address"
+    t.boolean  "selected",   default: false
   end
 
   add_index "pois", ["trip_id"], name: "index_pois_on_trip_id"
