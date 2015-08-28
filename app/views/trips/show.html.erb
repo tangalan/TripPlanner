@@ -1,16 +1,25 @@
 <p>
   <strong>Destination: <%= @trip.place %> </strong>
-  <%= link_to 'View all points of interests', trip_pois_path(@trip) %>
+  <%= link_to 'View all attractions', trip_pois_path(@trip) %>
+  <%= link_to 'View all restaurants', trip_restaurants_path(@trip) %>
 </p>
 
-<h2>Selected Points of Interest</h2>
+<h2>Selected Attractions </h2>
 
 <%= render 'selected_pois' %>
 
+<h2>Selected Restaurants </h2>
+
+<%= render 'selected_restaurants' %>
+
 <!-- Modify this page to open up a list of Pois instead  -->
-<h2>Add Points of Interest:</h2>
+<h2>Add Attractions </h2>
 
 <%= render 'unselected_pois' %>
+
+<h2>Add Restaurants </h2>
+
+<%= render 'unselected_restaurants' %>
 
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |

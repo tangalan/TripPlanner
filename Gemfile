@@ -49,11 +49,19 @@ gem 'devise'
 # gem for google_places
 gem 'google_places'
 
+# foursquare gem 
 gem 'foursquare2'
 gem 'oauth2'
 
+# flickr gem 
 gem 'flickraw'  
 
+# alternative server to webrick
 gem 'thin'
+
+# geocoder gem for google maps
+gem 'geocoder'
+
+gem 'gmaps4rails'
 
 

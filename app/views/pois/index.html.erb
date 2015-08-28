@@ -1,12 +1,14 @@
-<h1>Listing Points of Interest for Trip to </h1>
+<% @trip = Trip.find(params[:trip_id]) %>
+
+<h1>Listing Top 10 Attractions for: <%= @trip.place %> </h1>
  
 <table>
   <tr>
-    <th>Point of Interest </th>
+    <th>Attraction </th>
     <th>Address </th> 
   </tr>
  
-  <% @pois.each do |poi| %>
+  <% @trip.pois.each do |poi| %>
     <tr>
       <td><%= poi.name	 %></td>
       <td><%= poi.address %></td>      
@@ -15,4 +17,5 @@
   <% end %>
 </table>
 
+<%= link_to 'Back', trip_path(@trip) %>
 <%= link_to 'Home', root_path %>

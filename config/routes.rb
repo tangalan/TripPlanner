@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   Rails.application.routes.draw do
  
     resources :trips do 
-      
       resources :pois
+      resources :restaurants
         
     end
     root 'welcome#index'
@@ -19,6 +19,13 @@ Rails.application.routes.draw do
   match 'pois/select' => 'pois#select', :via => :post
   
   match 'pois/deselect' => 'pois#deselect', :via => :post
+  
+  match 'restaurants/select' => 'restaurants#select', :via => :post
+  
+  match 'restaurants/deselect' => 'restaurants#deselect', :via => :post
+  
+  match 'trips/:id/map' => "trips#map", :via => :get, :as => 'map_trip'
+
   
 
   # Example of regular route:
