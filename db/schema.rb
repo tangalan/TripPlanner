@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827185244) do
+ActiveRecord::Schema.define(version: 20150828102523) do
 
   create_table "pois", force: :cascade do |t|
     t.integer  "trip_id"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20150827185244) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "selected",   default: false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "restaurants", ["trip_id"], name: "index_restaurants_on_trip_id"
@@ -42,6 +44,8 @@ ActiveRecord::Schema.define(version: 20150827185244) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "users", force: :cascade do |t|

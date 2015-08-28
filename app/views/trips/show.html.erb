@@ -1,7 +1,9 @@
 <p>
   <strong>Destination: <%= @trip.place %> </strong>
+  <br>
   <%= link_to 'View all attractions', trip_pois_path(@trip) %>
   <%= link_to 'View all restaurants', trip_restaurants_path(@trip) %>
+  <%= link_to 'View map of selected places', map_trip_path(@trip) %>
 </p>
 
 <h2>Selected Attractions </h2>
@@ -22,5 +24,4 @@
 <%= render 'unselected_restaurants' %>
 
 
-<%= link_to 'Edit', edit_trip_path(@trip) %> |
 <%= link_to 'Back', trips_path %>

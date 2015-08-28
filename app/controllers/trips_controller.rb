@@ -24,10 +24,6 @@ module ApplicationHelper
     
   end
   
-  def get_google_key 
-    google_key = "AIzaSyB_6XEWPpo8UG8eaZXTwWqFuh8t3qNxIVY"
-  end
-  
   def find_pois
    puts "finding pois"
    $poi_array = Array.new
@@ -140,14 +136,14 @@ class TripsController < ApplicationController
     if @trip.save
       find_pois.each do |poi|
         name = poi.name
-        address = poi.address + ", " + @trip.place #makes sure address is in that city and not too generic
+        address = poi.address.to_s + ", " + @trip.place #makes sure address is in that city and not too generic
         @trip.pois.create(:name => name, :address => address)
         puts "created POI " + name.to_s
       end 
       
       find_restaurants.each do |restaurant|
         name = restaurant.name
-        address = restaurant.address + ", " + @trip.place
+        address = restaurant.address.to_s + ", " + @trip.place
         @trip.restaurants.create(:name => name, :address => address)
         puts "created restaurant " + name.to_s
       end 
@@ -177,7 +173,31 @@ class TripsController < ApplicationController
   
   def map 
     @trip = Trip.find(params[:id])
-    render 'map'
+    @pois = @trip.pois.where(:selected => true)
+    @restaurants = @trip.restaurants.where(:selected => true)
+    @hash = Gmaps4rails.build_markers(@pois) do |poi, marker|
+      marker.title poi.name
+      marker.lat poi.latitude 
+      marker.lng poi.longitude
+      marker.picture({
+       :url => "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|007FFF|000000",
+       :width   => 32,
+       :height  => 32
+      })
+    end 
+    @hash += 
+    Gmaps4rails.build_markers(@restaurants) do |restaurant, marker|
+      marker.title restaurant.name
+      marker.lat restaurant.latitude 
+      marker.lng restaurant.longitude
+      marker.picture({
+       :url => "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|008000|000000",
+       :width   => 32,
+       :height  => 32
+      })
+      
+    end
+    render 'map'  
   end
  
   

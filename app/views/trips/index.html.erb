@@ -33,12 +33,10 @@
       
       
       
-      <td><%= link_to 'Show', trip_path(trip) %></td>
-      <% if trip.user == current_user %>
-	        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
-	        <td><%= link_to 'Destroy', trip_path(trip), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	        <td><%= link_to 'Map', map_trip_path(trip) %> </td>
-	  <% end %>
+      <td><%= link_to 'Show/Edit', trip_path(trip) %></td>
+      <td><%= link_to 'Map', map_trip_path(trip) %> </td>
+	  <td><%= link_to 'Destroy', trip_path(trip), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  
     </tr>
   <% end %>
 </table>
@@ -46,12 +44,3 @@
 <%= link_to 'Home', root_path %>
 
 <%= link_to 'New Trip', new_trip_path %>
-
-<% google_key = get_google_key %>
-<%= string = "https://www.google.com/maps/embed/v1/place?key=" + google_key + "&q=Space+Needle,Seattle+WA&q=Pike+Market,Seattle+WA" %> 
-<iframe
-  width="600"
-  height="450"
-  frameborder="0" style="border:0"
-  src = "<%= string %>" allowfullscreen >
-</iframe>
