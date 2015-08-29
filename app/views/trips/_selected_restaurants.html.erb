@@ -6,7 +6,7 @@
 			<i> <%= " (" + restaurant.address + ")" %> </i> <br>
 			
 			Flickr Images: <br>
-			<% urls = find_poi_urls(restaurant.name, 3) %> 
+			<% urls = find_restaurant_urls(restaurant.name, 3) %> 
 				<% if urls.size > 0 %>
 					<% urls.each do |image| %>
 						<%= image_tag(image, size: "150x150") %>
