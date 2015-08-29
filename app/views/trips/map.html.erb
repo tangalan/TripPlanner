@@ -1,0 +1,28 @@
+<h1> Map of Selected Attractions & Restuarants </h1>
+
+<p>
+	<b> Legend: </b>
+	<i> Attraction: <%= image_tag "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|007FFF|000000"%></i>
+	<i> Restaurant <%= image_tag "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|008000|000000"%></i>
+</p>
+
+<i> Hover over marker to see name</i>
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
+ <script type="text/javascript">
+	handler = Gmaps.build('Google');
+	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+	  markers = handler.addMarkers(<%=raw @hash.to_json %>);
+	  handler.bounds.extendWith(markers);
+	  handler.fitMapToBounds();
+	});
+
+</script>
+
+
+<%= link_to 'Trip Index', trips_path %>
+
+<%= link_to 'Show/Edit Trip', trip_path(@trip) %>

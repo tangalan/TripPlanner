@@ -1,0 +1,21 @@
+<% @trip = Trip.find(params[:trip_id]) %>
+
+<h1>Listing Top 10 Restaurants for: <%= @trip.place %> </h1>
+ 
+<table>
+  <tr>
+    <th>Attraction </th>
+    <th>Address </th> 
+  </tr>
+ 
+  <% @trip.restaurants.each do |restaurant| %>
+    <tr>
+      <td><%= restaurant.name	 %></td>
+      <td><%= restaurant.address %></td>      
+     
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Back', trip_path(@trip) %>
+<%= link_to 'Home', root_path %>

@@ -1,0 +1,26 @@
+<%= form_tag pois_select_path, :method => :post do %>	
+	<% @trip.pois.each do |poi| %>
+		<% unless poi.selected %>
+	
+			<%= check_box_tag "pois_checkbox[]", poi.id %>
+			<b> <%= poi.name %> </b> 
+			<i> <%= " (" + poi.address + ")" %> </i> <br>
+			
+			Flickr Images: <br>
+			<% urls = find_poi_urls(poi.name, 3) %> 
+				<% if urls.size > 0 %>
+					<% urls.each do |image| %>
+						<%= image_tag(image, size: "150x150") %>
+					<% end %>
+				<% else %>
+					<i> No images found! </i>
+				<% end %>
+			
+			<br>
+				
+				
+		<% end %>	
+	<% end %>
+	
+	<%= submit_tag "Add attractions to trip!" %>
+<% end %>

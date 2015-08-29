@@ -1,0 +1,26 @@
+<%= form_tag restaurants_select_path, :method => :post do %>	
+	<% @trip.restaurants.each do |restaurant| %>
+		<% unless restaurant.selected %>
+	
+			<%= check_box_tag "restaurants_checkbox[]", restaurant.id %>
+			<b> <%= restaurant.name %> </b> 
+			<i> <%= " (" + restaurant.address + ")" %> </i> <br>
+			
+			Flickr Images: <br>
+			<% urls = find_restaurant_urls(restaurant.name, 3) %> 
+				<% if urls.size > 0 %>
+					<% urls.each do |image| %>
+						<%= image_tag(image, size: "150x150") %>
+					<% end %>
+				<% else %>
+					<i> No images found! </i>
+				<% end %>
+			
+			<br>
+				
+				
+		<% end %>	
+	<% end %>
+	
+	<%= submit_tag "Add restaurants to trip!" %>
+<% end %>
